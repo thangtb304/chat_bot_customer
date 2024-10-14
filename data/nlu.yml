@@ -1,0 +1,25 @@
+version: "3.1"
+nlu:
+  - intent: greet
+    examples: |
+      - hi
+      - hello
+      - hey
+      - good morning
+      - good evening
+
+  - intent: book_flight
+    examples: |
+      - I want to book a flight
+      - Can you help me book a flight from [New York](departure_city) to [London](destination_city)?
+      - I need a flight to [Paris](destination_city)
+      - Book me a flight from [Berlin](departure_city) to [Rome](destination_city)
+
+  - intent: ask_price
+    examples: |
+      - How much does it cost to fly from [Tokyo](departure_city) to [Seoul](destination_city)?
+      - What's the price of a flight from [Madrid](departure_city) to [Barcelona](destination_city)?
+
+entities:
+  - departure_city
+  - destination_city

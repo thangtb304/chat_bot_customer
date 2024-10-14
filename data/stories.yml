@@ -1,0 +1,29 @@
+version: "3.1"
+stories:
+  - story: greet and book flight
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: book_flight
+        entities:
+          - departure_city: "New York"
+          - destination_city: "London"
+      - action: utter_flight_booked
+
+  - story: ask price for flight
+    steps:
+      - intent: ask_price
+        entities:
+          - departure_city: "Tokyo"
+          - destination_city: "Seoul"
+      - action: utter_price_info
+
+  - story: greet and ask price
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_price
+        entities:
+          - departure_city: "Madrid"
+          - destination_city: "Barcelona"
+      - action: utter_price_info

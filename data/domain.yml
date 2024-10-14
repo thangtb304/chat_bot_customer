@@ -1,0 +1,22 @@
+version: "3.1"
+intents:
+  - greet
+  - book_flight
+  - ask_price
+
+entities:
+  - departure_city
+  - destination_city
+
+responses:
+  utter_greet:
+    - text: "Hello! How can I assist you today?"
+  utter_flight_booked:
+    - text: "Your flight has been booked successfully!"
+  utter_price_info:
+    - text: "The price of the flight from {departure_city} to {destination_city} is $200."
+  
+actions:
+  - utter_greet
+  - utter_flight_booked
+  - utter_price_info

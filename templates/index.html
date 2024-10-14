@@ -1,0 +1,59 @@
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+    CHATBOT DEMO <br>
+<textarea name="chatconent" id="chat_content" style="width: 300px; height: 150px;"></textarea>
+<br>
+<input type="text" id="user_message">
+<br>
+<button id="btn_send">Send</button>
+<script>
+
+    function addToTextArea ($ta,text){
+        var val =$ta.val();
+        if(val){
+            $ta.val(val + '\n' +text);
+        } else {
+            $ta.val(text);
+        }
+        $ta.scrollTop($ta[0].scrollHeight);
+    }
+    // khi người dùng gõ enter vào ô message thì gọi lệnh sendchat
+    $('#user_message').keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode: event.which);
+        if (keycode =="13")
+        {
+            sendchat();
+        }
+    });
+    function sendchat() {
+        // lấy giá trị của ô user_mesage vào biến
+        var user_message = $('#user_message').val();
+        $('#user_message').val('');
+        // thêm Bạn + nội dùng vào ô textarea
+        addToTextArea($('#chat_content'), "[BẠN]: " + user_message);
+
+        // Send vào  rasa http endpoint
+        $.ajax({
+            type: 'POST',
+            // url:'http://0.0.0:5005/webhooks/rest/webhook',  // dùng http://0.0.0:5005 không được
+            url: 'http://localhost:5005/webhooks/rest/webhook',   //dùng local host mới được
+            // data: '{"sender": "test","message": "'+user_message+'"}',
+            contentType: 'application/json',  // Thêm dòng này
+            data: JSON.stringify({
+                "sender": "test",
+                "message": user_message
+            }),
+            success: function (data){
+                addToTextArea($('#chat_content'), "[BOT]: " + data[0].text);
+            },
+
+
+        });
+// chạy thêm lệnh ở cmd rasa run --cors "*" để kích hoạt
+    }
+</script>
+</body>
+</html>
